@@ -1,0 +1,65 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+public class Solution {
+     static boolean isPalindrome(String str,  int low, int high) 
+    { 
+        while (low < high)  
+        { 
+            if (str.charAt(low) != str.charAt(high)) 
+                return false; 
+            low++; 
+            high--; 
+        } 
+        return true; 
+    }
+    // Complete the palindromeIndex function below.
+    static int palindromeIndex(String s) {
+        
+        int low=0;
+    int high=s.length()-1;
+
+    while(low<high)
+    {
+     if(s.charAt(low)==s.charAt(high))
+     {
+      low++;
+      high--;
+    }
+    else
+    {
+      if(isPalindrome(s,low+1,high))
+      return low;
+    if(isPalindrome(s,low,high-1))
+          return high;
+          
+    }
+    }return -1;
+    }
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int q = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int qItr = 0; qItr < q; qItr++) {
+            String s = scanner.nextLine();
+
+            int result = palindromeIndex(s);
+
+            bufferedWriter.write(String.valueOf(result));
+            bufferedWriter.newLine();
+        }
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}
